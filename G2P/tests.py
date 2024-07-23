@@ -43,6 +43,6 @@ G2P_en_lexicon = G2P_en_lexicon(g2p=G2P,
                                 sp=SP)
 
 if __name__ == '__main__':
-    text_ = """Fuck it I'm a loose cannon, Bruce Banner's back in the booth"""
+    text_ ="Hello, World! This is a sample text with numbers 12345 and symbols #$%."
     preprocess_seq = preprocess_text(text_)
     print(G2P_en_lexicon(preprocess_seq))
