@@ -80,4 +80,4 @@ g2p_model.load_state_dict(torch.load('D:/python/G2P_en_lex/models/model0.07.pt',
 G2P = GraphemeToPhoneme(g2p_model, tokenizer_g2p)
 
 if __name__ == '__main__':
-    print(G2P('POOP'))  # Expected output:['P', 'UW', 'P']
+    print(G2P('NIKITA'))  # Expected output:['P', 'UW', 'P']

@@ -78,4 +78,4 @@ SP = Stress_Pred(model=sp_model,
                  tokenizer=tokenizer_sp)
 
 if __name__ == '__main__':
-    print(SP(['P', 'EH', 'T', 'R', 'AH', 'F', 'AY']))
+    print(SP(['N', 'IH', 'K', 'IY', 'T', 'AH']))
