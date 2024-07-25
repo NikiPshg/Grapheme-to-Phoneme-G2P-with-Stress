@@ -48,24 +48,23 @@ def preprocess_text(text):
     return:
         ['HELLO', ',', 'WORLD', 'THIS', 'IS', 'A', 'SAMPLE', 'TEXT', 'WITH', 'NUMBERS', 'AND', 'SYMBOLS', '.']
     """
+    if not(text.isspace()) and text:
 
-    text = text.upper()
-    text = re.sub(r'([.,])', r' \1 ', text)
+        text = text.upper()
+        text = re.sub(r'([.,])', r' \1 ', text)
 
-    text = re.sub(r'[^A-Z .,^0-9]', '', text)
-    text = re.sub(r'\s+', ' ', text).strip()
+        text = re.sub(r'[^A-Z .,^0-9]', '', text)
+        text = re.sub(r'\s+', ' ', text).strip()
 
-    text = text.split()
-    result = []
-    for word in text:
-        if word.isdigit():
-            result = result + (intToWord(word).upper()).split()
-        else:
-            result.append(word)
-
-
-
-    text = [intToWord(word).upper() if word.isdigit() else word for word in text]
+        text = text.split()
+        result = []
+        for word in text:
+            if word.isdigit():
+                result = result + (intToWord(word).upper()).split()
+            else:
+                result.append(word)
+    else:
+        result = ['текст введи :(']
 
     return result
 
@@ -73,5 +72,4 @@ def preprocess_text(text):
 if __name__ == "__main__":
     sample_text = "Hello, World! This is a sample text with numbers 12345 and symbols #$%."
     processed_text = preprocess_text(sample_text)
-    print("Processed text:", processed_text)  # ['HELLO', ',', 'WORLD', 'THIS', 'IS', 'A', 'SAMPLE', 'TEXT', 'WITH',
-    # 'NUMBERS', 'AND', 'SYMBOLS', '.']
+    print("Processed text:", processed_text)

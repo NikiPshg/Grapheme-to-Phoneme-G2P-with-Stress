@@ -3,10 +3,10 @@ from G2P import G2P
 from data_preparation import preprocess_text
 import string
 import json
+import time
 
 with open('D:\python\G2P_en_lexicon\data\word2phoneme.json') as json_file:
     phoneme2grapheme_dict = json.load(json_file)
-
 class G2P_en_lexicon:
     def __init__(self, g2p, sp):
         self.G2P = g2p
@@ -43,6 +43,11 @@ G2P_en_lexicon = G2P_en_lexicon(g2p=G2P,
                                 sp=SP)
 
 if __name__ == '__main__':
-    text_ ="Hello, World! This is a sample text with numbers 12345 and symbols #$%."
-    preprocess_seq = preprocess_text(text_)
-    print(G2P_en_lexicon(preprocess_seq))
+    while True:
+        print('Ввод текса')
+        text_ = str(input())
+        start_time = time.time()
+        preprocess_seq = preprocess_text(text_)
+        print(G2P_en_lexicon(preprocess_seq))
+        end_time = time.time()
+        print(f"{(end_time - start_time)*1000} мc -- за это время программа была выполнена ")
