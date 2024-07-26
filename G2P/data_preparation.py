@@ -48,7 +48,7 @@ def preprocess_text(text):
     return:
         ['HELLO', ',', 'WORLD', 'THIS', 'IS', 'A', 'SAMPLE', 'TEXT', 'WITH', 'NUMBERS', 'AND', 'SYMBOLS', '.']
     """
-    if not(text.isspace()) and text:
+    if not(text.isspace()) and text and text:
 
         text = text.upper()
         text = re.sub(r'([.,])', r' \1 ', text)

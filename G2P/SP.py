@@ -61,7 +61,7 @@ class Stress_Pred:
         return pred
 
 
-tokenizer_sp = Tokenizer_sp(dict_path='D:\python\G2P_en_lexicon\my_tokenizer\my_dict_256.json')
+tokenizer_sp = Tokenizer_sp(dict_path='D:\APython\G2P_en_lexicon\my_tokenizer\my_dict_256.json')
 
 set_tokens_without_stress = set()
 for token, phoneme in tokenizer_sp.idx2token.items():
@@ -72,7 +72,7 @@ list_tokens_without_stress = list(set_tokens_without_stress)
 sp_model = TransformerBlock(config=config_sp,
                             tokenizer=tokenizer_sp)
 sp_model.load_state_dict(
-    torch.load('D:\python\G2P_en_lexicon\models\model_0.159.pt', map_location=torch.device('cpu')))
+    torch.load('D:\APython\G2P_en_lexicon\models\model_0.159.pt', map_location=torch.device('cpu')))
 
 SP = Stress_Pred(model=sp_model,
                  tokenizer=tokenizer_sp)
