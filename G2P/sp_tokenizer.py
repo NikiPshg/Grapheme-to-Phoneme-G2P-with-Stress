@@ -83,5 +83,5 @@ class Tokenizer_sp:
 
 
 if __name__ == "__main__":
-    tokenizer_sp = Tokenizer_sp(dict_path='D:\APython\G2P_en_lex\my_tokenizer\my_dict_256.json')
+    tokenizer_sp = Tokenizer_sp(dict_path='./my_tokenizer/my_dict_256.json')
     print(tokenizer_sp.idx2token)

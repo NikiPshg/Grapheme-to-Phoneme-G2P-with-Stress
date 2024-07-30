@@ -72,12 +72,12 @@ class GraphemeToPhoneme:
 
 
 # Initialization
-tokenizer_g2p = Tokenizer.from_file('D:/APython/G2P_en_lex/my_tokenizer/bpe_512_lex.json')
+tokenizer_g2p = Tokenizer.from_file('./my_tokenizer/bpe_512_lex.json')
 g2p_model = TransformerBlock(config=config_g2p, tokenizer=tokenizer_g2p)
 
-g2p_model.load_state_dict(torch.load('D:/APython/G2P_en_lex/models/model0.07.pt', map_location=torch.device('cpu')))
+g2p_model.load_state_dict(torch.load('./models/model0.07.pt', map_location=torch.device('cpu')))
 
 G2P = GraphemeToPhoneme(g2p_model, tokenizer_g2p)
 
 if __name__ == '__main__':
-    print(G2P('NIKITA'))  # Expected output:['P', 'UW', 'P']
+    print(G2P('NIKITA'))  # Expected output:['N', 'IH', 'K', 'IY', 'T', 'AH']
