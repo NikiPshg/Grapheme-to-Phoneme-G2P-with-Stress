@@ -16,8 +16,8 @@ This project provides a Grapheme to Phoneme (G2P) conversion tool that first che
 
 1. Clone the repository:
     ```sh
-    git clone https://github.com/NikiPshg/G2P_en_lex.git
-    cd G2P_en_lex
+    git clone https://github.com/NikiPshg/Grapheme-to-Phoneme-G2P-with-Stress.git
+    cd Grapheme-to-Phoneme-G2P-with-Stress
     ```
 
 2. Install the required dependencies:
