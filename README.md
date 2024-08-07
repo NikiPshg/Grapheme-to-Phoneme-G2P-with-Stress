@@ -10,6 +10,7 @@ This project provides a Grapheme to Phoneme (G2P) conversion tool that first che
     - **Stress Addition**: The second Transformer model adds stress markers to the phonemes.
 3. **ARPAbet Output**: Outputs phonemes in ARPAbet format.
 4. **Phoneme Integer Indices**: Converts graphemes to phoneme integer indices.
+5. A BPE tokenizer was used, which led to a better translation quality
 
 ## Installation
 
