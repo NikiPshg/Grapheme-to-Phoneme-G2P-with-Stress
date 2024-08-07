@@ -36,10 +36,13 @@ g2p_converter = g2p_en_lexicon()
 # Convert a word to phonemes
 text = "text, numbers, and some strange symbols !№;% 21"
 phonemes = G2P_en_lex(text, with_stress=False)
-['T', 'EH', 'K', 'S', 'T', ' ', ',', ' ', 'N', 'AH', 'M', 'B', 'ER', 'Z', ' ', ',', ' ',
-'AH', 'N', 'D', ' ', 'S', 'AH', 'M', ' ', 'S', 'T', 'R', 'EY', 'N', 'JH', ' ',
-'S', 'IH', 'M', 'B', 'AH', 'L', 'Z', ' ',
-'T', 'W', 'EH', 'N', 'IY', 'W', 'AH', 'N']
+['T', 'EH', 'K', 'S', 'T', ' ', ',', ' ',
+'N', 'AH', 'M', 'B', 'ER', 'Z',' ', ',', ' ', 
+'AE', 'N', 'D', ' ', 'S', 'AH', 'M', ' ',
+'S', 'T', 'R', 'EY', 'N', 'JH',' ', 
+'S', 'IH', 'M', 'B', 'AH', 'L', 'Z',' ', 
+'T', 'W', 'EH', 'N', 'IY', ' ', 'W', 'AH', 'N']
+
 
 
 
