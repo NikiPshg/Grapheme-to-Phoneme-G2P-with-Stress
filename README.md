@@ -42,7 +42,10 @@ phonemes = g2p(text, with_stress=False)
 'S', 'T', 'R', 'EY', 'N', 'JH',' ', 
 'S', 'IH', 'M', 'B', 'AH', 'L', 'Z',' ', 
 'T', 'W', 'EH', 'N', 'IY', ' ', 'W', 'AH', 'N']
+```
 
+### if you have any questions or you have found a bug, write here
+https://t.me/Hophoppop
 
 
 
