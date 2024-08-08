@@ -81,6 +81,8 @@ sp_model = TransformerBlock(config=config_sp,
 sp_model.load_state_dict(
     torch.load(model_path, map_location=torch.device('cpu')))
 
+sp_model = torch.compile(sp_model)
+
 SP = Stress_Pred(model=sp_model,
                  tokenizer=tokenizer_sp)
 

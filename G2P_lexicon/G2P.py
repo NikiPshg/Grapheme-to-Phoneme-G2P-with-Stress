@@ -82,6 +82,8 @@ tokenizer_g2p = Tokenizer.from_file(dict_path)
 g2p_model = TransformerBlock(config=config_g2p, tokenizer=tokenizer_g2p)
 g2p_model.load_state_dict(torch.load(model_path, map_location=torch.device('cpu')))
 
+g2p_model = torch.compile(g2p_model)
+
 G2P = GraphemeToPhoneme(g2p_model, tokenizer_g2p)
 
 if __name__ == '__main__':
