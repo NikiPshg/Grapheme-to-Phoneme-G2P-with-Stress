@@ -63,7 +63,7 @@ class g2p_en_lexicon:
 
 if __name__ == '__main__':
     G2P_en_lexicon = g2p_en_lexicon()
-    text = """mtusi is the worst option for a programmer or a student"""
+    text = """lupa pupasisa"""
     start_time = time.time()
     print(G2P_en_lexicon(text))
     end_time = time.time()

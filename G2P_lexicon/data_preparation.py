@@ -31,6 +31,13 @@ def numToWords(n, s):
 
 
 def intToWord(n):
+    """
+   turning a number into a word
+    srs:
+        "12345"
+    return:
+       ['twelve thousand three hundred and forty five']
+    """
     n=int(n)
     out = ""
 
@@ -58,18 +65,18 @@ def intToWord(n):
 
 def preprocess_text(text):
     """
-    Приведение к нормальному виду с отделенными точками и запятыми
+    Reduction to normal form with punctuation marks
     srs:
-        Hello, World! This is a sample text with numbers 12345 and symbols #$%.
+        "Hello, World! This is a sample text with numbers 12345 and symbols :#$%."
     return:
-        ['HELLO', ',', 'WORLD', 'THIS', 'IS', 'A', 'SAMPLE', 'TEXT', 'WITH', 'NUMBERS', 'AND', 'SYMBOLS', '.']
+       ['HELLO', ',', 'WORLD', '!', 'THIS', 'IS', 'A', 'SAMPLE', 'TEXT', 'WITH', 'NUMBERS', 'TWELVE', 'THOUSAND', 'THREE', 'HUNDRED', 'AND', 'FORTY', 'FIVE', 'AND', 'SYMBOLS', ':', '.']
     """
     if not (text.isspace()) and text and text:
 
         text = text.upper()
-        text = re.sub(r'([.,])', r' \1 ', text)
+        text = re.sub(r'([.,:;?!])', r' \1 ', text)
 
-        text = re.sub(r'[^A-Z .,^0-9]', '', text)
+        text = re.sub(r'[^A-Z .,:;?!^0-9]', '', text)
         text = re.sub(r'\s+', ' ', text).strip()
 
         text = text.split()
@@ -86,6 +93,7 @@ def preprocess_text(text):
 
 
 if __name__ == "__main__":
-    sample_text = "Hello, World! This is a sample text with numbers 12345 and symbols #$%."
+    print(intToWord(21))
+    sample_text = "Hello, World! This is a sample text with numbers 12345 and symbols :#$%."
     processed_text = preprocess_text(sample_text)
     print("Processed text:", processed_text)
