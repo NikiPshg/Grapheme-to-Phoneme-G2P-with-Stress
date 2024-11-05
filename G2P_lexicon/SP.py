@@ -17,24 +17,29 @@ class Stress_Pred:
 
         self.SP.eval()
 
+    @torch.inference_mode()
     def __call__(self, srs):
-        with torch.no_grad():
-            enc_input_tokens = self.tokenizer.encode(srs)
-            pad_id = torch.tensor(self.tokenizer.pad_idx)
-            enc_num_padding_tokens = 32 - len(enc_input_tokens)
-            encoder_input = torch.cat(
-                [
-                    torch.tensor(enc_input_tokens),
-                    pad_id.repeat(enc_num_padding_tokens)
-                ],
-                dim=0)
+        enc_input_tokens = self.tokenizer.encode(srs)
+        pad_id = torch.tensor(self.tokenizer.pad_idx)
+        enc_num_padding_tokens = 32 - len(enc_input_tokens)
 
-            encoder_mask = (encoder_input != pad_id).unsqueeze(0).unsqueeze(0).int()
-            label = self.greedy_decode_stress(
-                src=encoder_input,
-                src_mask=encoder_mask,
-                start_token=self.tokenizer.sos_idx,
-            )
+        if enc_num_padding_tokens < 0:
+            raise TimeoutError(f"context phoneme length exceeded by {enc_num_padding_tokens}")
+        
+        encoder_input = torch.cat(
+            [
+                torch.tensor(enc_input_tokens),
+                pad_id.repeat(enc_num_padding_tokens)
+            ],
+            dim=0)
+
+        encoder_mask = (encoder_input != pad_id).unsqueeze(0).unsqueeze(0).int()
+
+        label = self.greedy_decode_stress(
+            src=encoder_input,
+            src_mask=encoder_mask,
+            start_token=self.tokenizer.sos_idx,
+        )
         return label
 
     def greedy_decode_stress(self,
@@ -79,7 +84,7 @@ list_tokens_without_stress = list(set_tokens_without_stress)
 sp_model = TransformerBlock(config=config_sp,
                             tokenizer=tokenizer_sp)
 sp_model.load_state_dict(
-    torch.load(model_path, map_location=torch.device('cpu')))
+    torch.load(model_path, map_location=torch.device('cpu'), weights_only=True))
 
 sp_model = torch.compile(sp_model)
 

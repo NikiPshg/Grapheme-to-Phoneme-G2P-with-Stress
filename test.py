@@ -1,9 +1,10 @@
 from G2P_lexicon import g2p_en_lexicon
+import torch
 
 # Initialize the G2P converter
 g2p = g2p_en_lexicon()
 # Convert a word to phonemes
-text = "text, numbers, and some strange symbols !№;% 21"
+text = "text, numbers, and some strange-symbols !№;% 21"
 phonemes = g2p(text, with_stress=False)
 print(phonemes)
 

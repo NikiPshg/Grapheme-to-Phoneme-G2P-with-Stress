@@ -50,27 +50,33 @@ class GraphemeToPhoneme:
 
         pred = decode_form_G(self.tokenizer.decode(label[0].tolist()))
         return pred
+    
 
+    @torch.inference_mode()
     def __call__(self, srs):
-        with torch.no_grad():
-            enc_input_tokens = self.tokenizer.encode(srs).ids
-            pad_id = self.tokenizer.encode("<pad>").ids[0]
-            enc_num_padding_tokens = 32 - len(enc_input_tokens) - 2
-            encoder_input = torch.cat([
-                torch.tensor([self.tokenizer.encode("<bos>").ids[0]]),
-                torch.tensor(enc_input_tokens),
-                torch.tensor([self.tokenizer.encode("<eos>").ids[0]]),
-                torch.tensor([pad_id] * enc_num_padding_tokens)
-            ], dim=0)
+        enc_input_tokens = self.tokenizer.encode(srs).ids
+        pad_id = self.tokenizer.encode("<pad>").ids[0]
+        enc_num_padding_tokens = 32 - len(enc_input_tokens) - 2
+        if enc_num_padding_tokens < 0:
+            raise TimeoutError(f"context letter length exceeded by {enc_num_padding_tokens}")
+        
+        encoder_input = torch.cat([
+            torch.tensor([self.tokenizer.encode("<bos>").ids[0]]),
+            torch.tensor(enc_input_tokens),
+            torch.tensor([self.tokenizer.encode("<eos>").ids[0]]),
+            torch.tensor([pad_id] * enc_num_padding_tokens)
+        ], dim=0)
 
-            encoder_mask = (encoder_input != pad_id).unsqueeze(0).unsqueeze(0).int()
-            pred = self.greedy_decode_grapheme(
-                model=self.g2p_model,
-                src=encoder_input,
-                src_mask=encoder_mask,
-                max_len=32,
-                start_token=self.tokenizer.encode("<bos>").ids[0]
-            )
+        encoder_mask = (encoder_input != pad_id).unsqueeze(0).unsqueeze(0).int()
+
+        pred = self.greedy_decode_grapheme(
+            model=self.g2p_model,
+            src=encoder_input,
+            src_mask=encoder_mask,
+            max_len=32,
+            start_token=self.tokenizer.encode("<bos>").ids[0]
+        )
+
         return pred
 
 
@@ -80,7 +86,7 @@ model_path = os.path.join(dirname, "models/model_g2p.pt")
 
 tokenizer_g2p = Tokenizer.from_file(dict_path)
 g2p_model = TransformerBlock(config=config_g2p, tokenizer=tokenizer_g2p)
-g2p_model.load_state_dict(torch.load(model_path, map_location=torch.device('cpu')))
+g2p_model.load_state_dict(torch.load(model_path, map_location=torch.device('cpu'), weights_only=True))
 
 g2p_model = torch.compile(g2p_model)
 
